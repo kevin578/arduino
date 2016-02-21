@@ -1,14 +1,14 @@
 
 // include the library code:
 #include <LiquidCrystal.h>
-
-
-int seconds = 0;
-int Smodifier = 0; 
-int minutes = 0;
-int Mmodifier = 0;
-int hours = 0;
-int Hmodifier = 0;
+#include <Time.h>
+int alarmButton = 2;
+int timeButton = 13;
+int hourButton = 10;
+int minuteButton = 11;
+int mode = 2;
+int alarmHour;
+int alarmMinute;
 
 // initialize the library with the numbers of the interface pins
 LiquidCrystal lcd(4, 5, 6, 7, 8, 9);
@@ -16,21 +16,44 @@ LiquidCrystal lcd(4, 5, 6, 7, 8, 9);
 void setup() {
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
-  // Print a message to the LCD.
-  lcd.print("hello, world!");
+  pinMode(alarmButton, INPUT);
+  pinMode(timeButton, INPUT);
+  pinMode(hourButton, INPUT);
+  pinMode(minuteButton, INPUT);
+  setTime(11,47,0,0,0,0);
+  Serial.begin(9600);
+  digitalWrite(minuteButton, LOW);
+   
 }
 
 void loop() {
+  
+  if (digitalRead(alarmButton) == HIGH) {
+    mode = 2;
+  }
 
-  Smodifier = 0;
-  Mmodifier = 01;
-  Hmodifier = 11;
-  seconds = (millis()/1000 + Smodifier) % 60;
-  minutes = ((millis()/1000 + Smodifier)/60 + Mmodifier) % 60;
-  hours =   (((millis()/1000 + Smodifier)/60 + Mmodifier)/60 + Hmodifier) % 60 % 24;
+  else if (digitalRead(timeButton) == HIGH){
+    mode = 3;  
+  }
+  else {
+    mode = 1;
+  }
 
+  if (mode == 1) {
+  lcd.clear();
   printTime();
+  delay (1000);
+  }
+  else if (mode == 2){
+    lcd.clear();
+    printAlarm();
+  }
 
+  else if (mode == 3){
+    lcd.clear();
+    changeTime();
+  }
+  Serial.println(digitalRead(minuteButton));
 
 }
 
