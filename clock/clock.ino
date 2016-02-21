@@ -7,6 +7,7 @@ int timeButton = 13;
 int hourButton = 10;
 int minuteButton = 11;
 int mode = 2;
+int alarm = 3;
 int alarmHour;
 int alarmMinute;
 
@@ -20,13 +21,13 @@ void setup() {
   pinMode(timeButton, INPUT);
   pinMode(hourButton, INPUT);
   pinMode(minuteButton, INPUT);
-  setTime(11,47,0,0,0,0);
-  Serial.begin(9600);
   digitalWrite(minuteButton, LOW);
    
 }
 
 void loop() {
+
+//Determine if in time, change time, or alarm mode
   
   if (digitalRead(alarmButton) == HIGH) {
     mode = 2;
@@ -39,21 +40,29 @@ void loop() {
     mode = 1;
   }
 
+//Mode 1: tell time
   if (mode == 1) {
   lcd.clear();
   printTime();
   delay (1000);
   }
+//Mode 2: change alarm  
   else if (mode == 2){
     lcd.clear();
     printAlarm();
   }
-
+//Mode 3: change time
   else if (mode == 3){
     lcd.clear();
     changeTime();
   }
-  Serial.println(digitalRead(minuteButton));
+if (alarmHour == hour() && alarmMinute == minute() && millis()/1000 % 2 == 1){
+  digitalWrite(alarm, HIGH);
+}
+  else{
+    digitalWrite(alarm, LOW);
+  }
+
 
 }
 
