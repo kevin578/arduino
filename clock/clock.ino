@@ -2,12 +2,12 @@
 // include the library code:
 #include <LiquidCrystal.h>
 #include <Time.h>
-int alarmButton = 2;
-int timeButton = 13;
-int hourButton = 10;
-int minuteButton = 11;
-int mode = 2;
-int alarm = 3;
+int alarmButton = 10;
+int timeButton =  1;
+int hourButton = 2;
+int minuteButton = 3;
+int mode = 1;
+int alarm = 11;
 int alarmHour;
 int alarmMinute;
 
@@ -21,14 +21,13 @@ void setup() {
   pinMode(timeButton, INPUT);
   pinMode(hourButton, INPUT);
   pinMode(minuteButton, INPUT);
-  digitalWrite(minuteButton, LOW);
+  pinMode(alarm, OUTPUT);
    
 }
 
 void loop() {
-
-//Determine if in time, change time, or alarm mode
   
+//Determine if in time, change time, or alarm mode
   if (digitalRead(alarmButton) == HIGH) {
     mode = 2;
   }

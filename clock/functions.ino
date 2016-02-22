@@ -28,7 +28,7 @@ void printTime() {
 //Function to print alarm time and increase time based on button input
 
 void printAlarm(){
-  
+
   lcd.setCursor(0,0);
   lcd.print("Alarm");
   lcd.setCursor(0, 1);
