@@ -12,4 +12,5 @@ void loop() {
   lcd.setCursor(6,1);
   lcd.print("Kevin!");
   delay(1000);
+  lcd.clear();
 }
