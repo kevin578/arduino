@@ -42,6 +42,9 @@ const uint16_t monoMode = 1;  // Mono setting 0=off, 3=max
 
 void setup(){
   pinMode(A0, INPUT_PULLUP);
+  pinMode(A1, INPUT_PULLUP);
+  pinMode(A2, INPUT_PULLUP);
+  pinMode(A3, INPUT_PULLUP);
   Serial.begin(9600);
   initSD();  // Initialize the SD card
   initMP3Player(); // Initialize the MP3 Shield
@@ -52,20 +55,14 @@ void setup(){
 //  currently playing track, and start playing a new one.
 void loop()
 {
-    Serial.println(digitalRead(A0));
-    delay(500);
-    if (digitalRead(A0) == HIGH)
-    {
-      /* If another track is playing, stop it: */
-      if (MP3player.isPlaying())
-        MP3player.stopTrack();
+  checkPin(A0, 1);
+  delay(10);
+  checkPin(A1, 2);
+  delay(10);
+  checkPin(A2, 3);
+  delay(10);
+  checkPin(A3, 4);
 
-      /* Use the playTrack function to play a numbered track: */
-      uint8_t result = MP3player.playTrack(10);
-      // An alternative here would be to use the
-      //  playMP3(fileName) function, as long as you mapped
-      //  the file names to trigger pins.
-    }
  }
  
 
@@ -93,4 +90,23 @@ void initMP3Player()
   MP3player.setVolume(volume, volume);
   MP3player.setMonoMode(monoMode);
 }
+
+void checkPin(int pin, int track) {
+    if (digitalRead(pin) == LOW)
+    {
+      /* If another track is playing, stop it: */
+      if (MP3player.isPlaying())
+        MP3player.stopTrack();
+
+      /* Use the playTrack function to play a numbered track: */
+      uint8_t result = MP3player.playTrack(track);
+      delay(100);
+      // An alternative here would be to use the
+      //  playMP3(fileName) function, as long as you mapped
+      //  the file names to trigger pins.
+    }
+
+
+}
+
 
