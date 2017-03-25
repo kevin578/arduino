@@ -1,20 +1,20 @@
+int button;
+
 void setup() {
   // put your setup code here, to run once:
-  pinMode(13, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(8, INPUT);
   Serial.begin(9600);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  int photo = analogRead(0);
-  Serial.println(photo);
+  button = digitalRead(8);
+  Serial.println(button);
+  if (button == HIGH) {
+    digitalWrite(7, HIGH);
+    delay(3000);
+    digitalWrite(7, LOW);
+  }
 
-  //if then statement turn on light
-  if (photo < 200) {
-    digitalWrite(13, HIGH);
-  }
-  else {
-    digitalWrite(13, LOW);
-  }
-  delay(100);
 }
