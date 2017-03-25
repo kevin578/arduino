@@ -45,6 +45,10 @@ void setup(){
   pinMode(A1, INPUT_PULLUP);
   pinMode(A2, INPUT_PULLUP);
   pinMode(A3, INPUT_PULLUP);
+  pinMode(A4, INPUT_PULLUP);
+  pinMode(10, INPUT_PULLUP);
+  pinMode(5, INPUT_PULLUP);
+  pinMode(1, INPUT_PULLUP);
   Serial.begin(9600);
   initSD();  // Initialize the SD card
   initMP3Player(); // Initialize the MP3 Shield
@@ -62,7 +66,15 @@ void loop()
   checkPin(A2, 3);
   delay(10);
   checkPin(A3, 4);
-
+  delay(10);
+  checkPin(10, 5);
+  delay(10);
+  checkPin(5, 6);
+  delay(10);
+  checkPin(0, 7);
+  delay(10);
+  checkPin(A4, 8);
+  delay(10);
  }
  
 
