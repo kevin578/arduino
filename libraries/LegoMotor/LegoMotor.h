@@ -6,19 +6,23 @@ legoMotor library
 #endif
 
 #include "Arduino.h"
+#include <Encoder.h>
 
 
 class LegoMotor {
 
   public:
-    LegoMotor(int forward, int back, int A, int B);
+    LegoMotor(int forward, int back, int A, int B, int PWM);
     int forwardPin;
     int backwardPin;
     int rotA;
     int rotB;
+    int pwmPin;
     int counter = 0;
-    int aState;
-    int aLastState;
+    long oldPosition = -999;
+    long newPosition;
+    void setSpeed(int);
     void attach();
     void write(int);
+    void countPin();
 };

@@ -1,0 +1,5 @@
+{
+    "board": "arduino:avr:micro",
+    "port": "/dev/cu.usbmodem1411",
+    "sketch": "RGBWstrandtest.ino"
+}

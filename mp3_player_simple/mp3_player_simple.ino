@@ -1,7 +1,6 @@
 //Simple example of using Sparkfun's MP3 Shield. You need to install the SdFat and SFEMP3Shield libraries first.
 
 //Select include SdFat library from Sketch menu 
-
 #include <ArduinoStream.h>
 #include <bufstream.h>
 #include <ios.h>
@@ -27,7 +26,7 @@
 #include <SFEMP3Shield.h>
 #include <SFEMP3ShieldConfig.h>
 #include <SFEMP3Shieldmainpage.h>
-
+int trackNumber = 1;
 
 SdFat sd; // Create SDFat object. 
 
@@ -40,15 +39,19 @@ const uint16_t monoMode = 1;  // Mono setting 0=off, 3=max
 
 //In void setup you need to functions which are define below
 void setup(){
+  Serial.begin(9600);
   initSD();  // Initialize the SD card
   initMP3Player(); // Initialize the MP3 Shield
 }
 
 void loop()
 {
-  
-  uint8_t result = MP3player.playTrack(1); //plays track 1 (track001.mp3)
-  delay(3000); //delay for a little sanity between 
+  for ( int trackNumber = 1; trackNumber <= 2; trackNumber++) {
+  uint8_t result = MP3player.playTrack(trackNumber); //plays track 1 (track001.mp3)
+  Serial.print(trackNumber);
+  delay(3000); //delay for a little sanity between
+
+  }
  }
  
 
