@@ -14,12 +14,15 @@ void setup() {
  Serial.begin(9600);
  pinMode(2, INPUT_PULLUP);
  pinMode(A0, INPUT_PULLUP);
+ pinMode(A1, INPUT_PULLUP);
  // create an attactInterupt.
   attachInterrupt(digitalPinToInterrupt(2), coinCollect, FALLING);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
+
+     
    if (moneyNeeded == 50) {
     lcd.setCursor(1, 0);
     lcd.print("Please insert ");
@@ -34,16 +37,20 @@ void loop() {
  }
  else if(moneyNeeded == 0) {
     lcd.setCursor(1, 0);
-    lcd.print("");
+    lcd.print("select snack ");
     lcd.setCursor(4,1);
-    lcd.print("");
+    lcd.print("        ");
+  
   if(digitalRead(A0) == LOW) {
      moveMotor(12);
      moneyNeeded = 50;
   }
+  if(digitalRead(A1) == LOW) {
+    moveMotor(13);
+    moneyNeeded = 50;
+  }
 
  }
-// TODO #3 - add the else if statements
 }
 
 
@@ -55,7 +62,9 @@ void moveMotor(int pinNumber){
 }
 
 void coinCollect(){
+  if(moneyNeeded > 0) {
   moneyNeeded = moneyNeeded - 5; 
+  }
 }
 
 
